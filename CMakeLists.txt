@@ -3,4 +3,5 @@ project(tiny_curl C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(tiny_curl main.c)
+add_executable(tiny_curl main.c
+        argParse/argeParse.c)
