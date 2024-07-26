@@ -4,7 +4,7 @@ set(CMAKE_C_STANDARD 11)
 
 project(argparse VERSION 0.1.0 LANGUAGES C)
 
-add_executable(tiny_curl/argPars argeParse.c)
+add_executable(tiny_curl/argPars arg_parse.c)
 if (NOT CMAKE_C_FLAGS)
     set(CMAKE_C_FLAGS "-O3")
 endif ()

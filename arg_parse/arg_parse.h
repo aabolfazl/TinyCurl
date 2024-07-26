@@ -113,7 +113,7 @@ int argparse_help_cb_no_exit(struct argparse *self, const struct argparse_option
 #define OPT_FLOAT(...)   { ARGPARSE_OPT_FLOAT, __VA_ARGS__ }
 #define OPT_STRING(...)  { ARGPARSE_OPT_STRING, __VA_ARGS__ }
 #define OPT_GROUP(h)     { ARGPARSE_OPT_GROUP, 0, NULL, NULL, h, NULL, 0, 0 }
-#define OPT_HELP()       OPT_BOOLEAN('h', "help", NULL,"show this help message and exit",/argparse_help_cb, 0, OPT_NONEG)
+#define OPT_HELP()       OPT_BOOLEAN('h', "help", NULL,"show this help message and exit",argparse_help_cb, 0, OPT_NONEG)
 
 int argparse_init(struct argparse *self, struct argparse_option *options, const char *const *usages, int flags);
 

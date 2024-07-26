@@ -10,7 +10,7 @@
 #include <string.h>
 #include <assert.h>
 #include <errno.h>
-#include "argparse.h"
+#include "arg_parse.h"
 
 #define OPT_UNSET 1
 #define OPT_LONG  (1 << 1)
@@ -181,7 +181,7 @@ argparse_long_opt(struct argparse *self, const struct argparse_option *options) 
     return -2;
 }
 
-int argparse_init(struct argparse *self, struct argparse_option *options,const char *const *usages, int flags) {
+int argparse_init(struct argparse *self, struct argparse_option *options, const char *const *usages, int flags) {
     memset(self, 0, sizeof(*self));
     self->options = options;
     self->usages = usages;
@@ -353,7 +353,7 @@ void argparse_usage(struct argparse *self) {
         fprintf(stdout, "%s\n", self->epilog);
 }
 
-int argparse_help_cb_no_exit(struct argparse *self,const struct argparse_option *option) {
+int argparse_help_cb_no_exit(struct argparse *self, const struct argparse_option *option) {
     (void) option;
     argparse_usage(self);
     return (EXIT_SUCCESS);
