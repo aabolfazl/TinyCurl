@@ -143,8 +143,7 @@ static int argparse_short_opt(struct argparse *self, const struct argparse_optio
     return -2;
 }
 
-static int
-argparse_long_opt(struct argparse *self, const struct argparse_option *options) {
+static int argparse_long_opt(struct argparse *self, const struct argparse_option *options) {
     for (; options->type != ARGPARSE_OPT_END; options++) {
         const char *rest;
         int opt_flags = 0;
@@ -158,8 +157,7 @@ argparse_long_opt(struct argparse *self, const struct argparse_option *options) 
                 continue;
             }
             // only OPT_BOOLEAN/OPT_BIT supports negation
-            if (options->type != ARGPARSE_OPT_BOOLEAN && options->type !=
-                                                         ARGPARSE_OPT_BIT) {
+            if (options->type != ARGPARSE_OPT_BOOLEAN && options->type != ARGPARSE_OPT_BIT) {
                 continue;
             }
 
@@ -191,8 +189,7 @@ int argparse_init(struct argparse *self, struct argparse_option *options, const 
     return 0;
 }
 
-void argparse_describe(struct argparse *self, const char *description,
-                       const char *epilog) {
+void argparse_describe(struct argparse *self, const char *description, const char *epilog) {
     self->description = description;
     self->epilog = epilog;
 }
