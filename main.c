@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "arg_parse.h"
+#include "libs/arg_parse/arg_parse.h"
 #include <string.h>
+#include <sys/socket.h>
 
 static const char *const usages[] = {
     "tcurl [options] <url>",
