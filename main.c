@@ -3,6 +3,7 @@
 #include <string.h>
 #include <sys/socket.h>
 //this command is for Lazygit test!
+//second test 
 static const char *const usages[] = {
     "tcurl [options] <url>",
     NULL,
