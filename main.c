@@ -1,7 +1,22 @@
+//C library
 #include <stdio.h>
-#include "libs/arg_parse/arg_parse.h"
 #include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
+
+//system library
 #include <sys/socket.h>
+
+
+//project library
+#include "libs/arg_parse/arg_parse.h"
+
+
+
  
 static const char *const usages[] = {
     "tcurl [options] <url>",
