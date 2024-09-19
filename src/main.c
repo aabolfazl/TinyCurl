@@ -1,4 +1,4 @@
-#include <stdio.h> 
+#include <stdio.h>
 #include "arg_parse.h"
 #include "socket.h"
 #include <string.h>
@@ -13,6 +13,7 @@ static const char *const usages[] = {
 };
 
 int main(int argc, const char **argv) {
+    create_socket();
     const char *url = NULL;
     const char *user_agent = NULL;
     int timeout = 30;
@@ -49,20 +50,15 @@ int main(int argc, const char **argv) {
     if (argc > 0) {
         url = argv[0];
     }
+    server_connect(url);
 
-    int fd = create_socket();
-    char *buffer = "GET /sayhello HTTP/1.1\n"
-                   "Host: 3426f4e2-5ba9-473a-bb4d-e221023be581.mock.pstmn.io\n"
-                   "User-Agent: curl/8.6.0\n"
-                   "Accept: */*\n";
+    server_struct();
 
-    int res = write(fd, buffer, strlen(buffer));
+    server_connect2();
 
-    if (res == -1) {
-        printf("error code: %d", errno);
-    }
+    send_request(url);
 
-
+    receive_socket();
     return 0;
 }
 

@@ -1,0 +1,6 @@
+/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles/tcurl.dir
+/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles/edit_cache.dir
+/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles/rebuild_cache.dir
+/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/libs/arg_parse/CMakeFiles/argparse.dir
+/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/libs/arg_parse/CMakeFiles/edit_cache.dir
+/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/libs/arg_parse/CMakeFiles/rebuild_cache.dir

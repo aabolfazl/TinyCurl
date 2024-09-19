@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/tcurl.dir/src/main.c.o CMakeFiles/tcurl.dir/src/socket.c.o -o tcurl  libs/arg_parse/libargparse.a 
