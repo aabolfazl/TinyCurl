@@ -1,9 +1,11 @@
+#include <ctype.h>
 #include <stdio.h>
 #include "arg_parse.h"
 #include "socket.h"
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <stdlib.h>
 
 int err = 0;
 
@@ -13,12 +15,10 @@ static const char *const usages[] = {
 };
 
 int main(int argc, const char **argv) {
-    create_socket();
     const char *url = NULL;
     const char *user_agent = NULL;
     int timeout = 30;
     const char *request_method = "GET";
-
     // https://3426f4e2-5ba9-473a-bb4d-e221023be581.mock.pstmn.io
 
 
@@ -27,7 +27,7 @@ int main(int argc, const char **argv) {
     // User-Agent: curl/8.6.0
     // Accept: */*
 
-//    tcurl http://google.com/
+    //    tcurl http://google.com/
 
     struct argparse_option options[] = {
         OPT_HELP(),
@@ -49,16 +49,22 @@ int main(int argc, const char **argv) {
     // The remaining argument should be the URL
     if (argc > 0) {
         url = argv[0];
+
     }
-    server_connect(url);
+    const char *request_type = argv[1];
+    const char *path = argv[2];
+    // //NULL check
+    if (url == NULL) {
+        printf("url is NULL\n");
+        exit(EXIT_SUCCESS);
+    }
+    //create SOCKET
+    socket_create();
 
-    server_struct();
+    //Connect to created server
+    socket_connect(url);
+    //Detect if the request is GET or POST
 
-    server_connect2();
-
-    send_request(url);
-
-    receive_socket();
     return 0;
 }
 
