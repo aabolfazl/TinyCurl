@@ -10,4 +10,7 @@ add_executable(tcurl src/main.c src/socket.c
 
 target_link_libraries(tcurl PRIVATE argparse)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+
 target_include_directories(tcurl PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libs/arg_parse)
