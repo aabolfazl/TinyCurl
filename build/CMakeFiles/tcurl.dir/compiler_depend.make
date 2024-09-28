@@ -84,7 +84,6 @@ CMakeFiles/tcurl.dir/src/main.c.o: /home/bitwise-brew/Desktop/C_projects/TinyCur
 
 CMakeFiles/tcurl.dir/src/socket.c.o: /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/socket.c \
   /usr/include/alloca.h \
-  /usr/include/arpa/inet.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/posix_types.h \
   /usr/include/asm-generic/socket.h \
@@ -186,6 +185,8 @@ CMakeFiles/tcurl.dir/src/socket.c.o: /home/bitwise-brew/Desktop/C_projects/TinyC
 
 /usr/include/x86_64-linux-gnu/asm/posix_types_64.h:
 
+/usr/include/x86_64-linux-gnu/asm/posix_types.h:
+
 /usr/include/x86_64-linux-gnu/bits/sockaddr.h:
 
 /usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
@@ -199,10 +200,6 @@ CMakeFiles/tcurl.dir/src/socket.c.o: /home/bitwise-brew/Desktop/C_projects/TinyC
 /usr/include/linux/stddef.h:
 
 /usr/include/asm-generic/sockios.h:
-
-/usr/include/x86_64-linux-gnu/asm/posix_types.h:
-
-/usr/include/arpa/inet.h:
 
 /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/socket.c:
 

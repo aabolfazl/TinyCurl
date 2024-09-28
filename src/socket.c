@@ -1,90 +1,85 @@
-#include <sys/socket.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#include <sys/socket.h>
 #include <netdb.h>
+#include <unistd.h>
 
-#define PORT 80
+#define BUFFER_SIZE 4096
 
-int sock;
-struct sockaddr_in server;
-char message[1024], server_reply[4096];
+// Function to send a GET or POST request using plain sockets (HTTP)
+void send_http_request(const char* host, const char* method, const char* path, const char* data) {
+    struct addrinfo hints, *res;
+    int sockfd;
+    char request[BUFFER_SIZE];
+    char buffer[BUFFER_SIZE];
 
-void socket_create() {
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock == -1) {
-        perror("Socket creation failed!");
-        perror(EXIT_SUCCESS);
-    }
-    printf("Socket created\n");
-}
+    // Set up the address info hints
+    memset(&hints, 0, sizeof hints);
+    hints.ai_family = AF_UNSPEC; // IPv4 or IPv6
+    hints.ai_socktype = SOCK_STREAM; // TCP
 
-int socket_connect(const char *url) {
-    server.sin_addr.s_addr = inet_addr(url);
-    server.sin_family = AF_INET;
-    server.sin_port = htons(PORT);
-    printf("Binding to socket...\n");
-    if (connect(sock, (struct sockaddr*)&server, sizeof(server)) < 0) {
-        perror("Connection failed");
-        return 1;
-    }
-    printf("Connection established\n");
-    return 0;
-}
-
-int socket_getPost(char *url, char *request_type, char *path) {
-    //Argument Parse check
-    if (url != NULL && request_type != NULL || path != NULL) {
-        return 0;
+    // Resolve the host name to an address
+    int status = getaddrinfo(host, "80", &hints, &res);
+    if (status != 0) {
+        fprintf(stderr, "getaddrinfo error: %s\n", gai_strerror(status));
+        exit(1);
     }
 
-    if (strcmp(request_type, "post") == 0) {
-        // Prepare and send POST request
-        char *data = "field1=value1&field2=value2";
-        snprintf(message, sizeof(message),
+    // Create the socket
+    sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+    if (sockfd == -1) {
+        perror("socket");
+        exit(1);
+    }
+
+    // Connect to the server
+    if (connect(sockfd, res->ai_addr, res->ai_addrlen) == -1) {
+        perror("connect");
+        close(sockfd);
+        exit(1);
+    }
+
+    // Create the HTTP request based on the method (GET or POST)
+    if (strcmp(method, "GET") == 0) {
+        snprintf(request, sizeof(request),
+                 "GET %s HTTP/1.1\r\n"
+                 "Host: %s\r\n"
+                 "Connection: close\r\n\r\n",
+                 path, host);
+    } else if (strcmp(method, "POST") == 0) {
+        snprintf(request, sizeof(request),
                  "POST %s HTTP/1.1\r\n"
                  "Host: %s\r\n"
                  "Content-Type: application/x-www-form-urlencoded\r\n"
                  "Content-Length: %zu\r\n"
                  "Connection: close\r\n\r\n"
-                 "%s", path, url, strlen(data), data);
-    } else if (strcmp(request_type, "get") == 0) {
-        // Prepare and send GET request
-        snprintf(message, sizeof(message),
-                 "GET %s HTTP/1.1\r\n"
-                 "Host: %s\r\n"
-                 "Connection: close\r\n\r\n", path, url);
+                 "%s",
+                 path, host, strlen(data), data);
     } else {
-        printf("Invalid request type. Use 'get' or 'post'.\n");
-        close(sock);
-        return 1;
-    }
-    return 0;
-}
-
-int socket_send() {
-    if (send(sock, message, strlen(message), 0) < 0) {
-        perror("Send failed");
-        return 1;
-    }
-    return 0;
-}
-
-int socket_recv() {
-    int recv_size;
-    while ((recv_size = recv(sock, server_reply, sizeof(server_reply) - 1, 0)) > 0) {
-        server_reply[recv_size] = '\0'; // Null-terminate the server's reply
-        printf("%s", server_reply); // Print the reply to the terminal
+        fprintf(stderr, "Unsupported method: %s\n", method);
+        exit(1);
     }
 
-    if (recv_size < 0) {
-        perror("Receive failed");
+    // Send the request to the server
+    if (send(sockfd, request, strlen(request), 0) == -1) {
+        perror("send");
+        close(sockfd);
+        exit(1);
     }
-    return 0;
-}
 
-void socket_close() {
-    close(sock);
+    // Receive the response from the server
+    ssize_t bytes_received;
+    while ((bytes_received = recv(sockfd, buffer, BUFFER_SIZE - 1, 0)) > 0) {
+        buffer[bytes_received] = '\0';
+        printf("%s", buffer); // Print the server's response
+    }
+
+    if (bytes_received == -1) {
+        perror("recv");
+    }
+
+    // Clean up
+    freeaddrinfo(res);
+    close(sockfd);
 }

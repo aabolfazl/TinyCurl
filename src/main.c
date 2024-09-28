@@ -16,6 +16,8 @@ static const char *const usages[] = {
 
 int main(int argc, const char **argv) {
     const char *url = NULL;
+    const char *method = NULL;
+    const char *data = NULL;
     const char *user_agent = NULL;
     int timeout = 30;
     const char *request_method = "GET";
@@ -49,21 +51,16 @@ int main(int argc, const char **argv) {
     // The remaining argument should be the URL
     if (argc > 0) {
         url = argv[0];
-
+        method = argv[1];
+        data = argv[2];
     }
-    const char *request_type = argv[1];
-    const char *path = argv[2];
     // //NULL check
     if (url == NULL) {
         printf("url is NULL\n");
         exit(EXIT_SUCCESS);
     }
-    //create SOCKET
-    socket_create();
 
-    //Connect to created server
-    socket_connect(url);
-    //Detect if the request is GET or POST
+    send_http_request(url,method,data);
 
     return 0;
 }

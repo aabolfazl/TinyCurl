@@ -5,12 +5,5 @@
 #ifndef TCURL_SOCKET_H
 #define TCURL_SOCKET_H
 
-void socket_create() ;
-int socket_connect();
-int socket_getPost();
-int socket_send();
-int socket_recv();
-int socket_close();
-
-
+void send_http_request(const char* host, const char* method, const char* data);
 #endif //TCURL_SOCKET_H
