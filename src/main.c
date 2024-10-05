@@ -1,6 +1,13 @@
+#include <ctype.h>
 #include <stdio.h>
 #include "arg_parse.h"
+#include "socket.h"
 #include <string.h>
+#include <unistd.h>
+#include <errno.h>
+#include <stdlib.h>
+
+int err = 0;
 
 static const char *const usages[] = {
     "tcurl [options] <url>",
@@ -9,12 +16,20 @@ static const char *const usages[] = {
 
 int main(int argc, const char **argv) {
     const char *url = NULL;
-    const char *output_file = NULL;
-    int verbose = 0;
-    int follow_redirects = 0;
+    const char *method = NULL;
+    const char *data = NULL;
     const char *user_agent = NULL;
-    int timeout = 30;  // Default timeout in seconds
+    int timeout = 30;
     const char *request_method = "GET";
+    // https://3426f4e2-5ba9-473a-bb4d-e221023be581.mock.pstmn.io
+
+
+    // GET /sayhello HTTP/1.1
+    // Host: 3426f4e2-5ba9-473a-bb4d-e221023be581.mock.pstmn.io
+    // User-Agent: curl/8.6.0
+    // Accept: */*
+
+    //    tcurl http://google.com/
 
     struct argparse_option options[] = {
         OPT_HELP(),
@@ -36,22 +51,28 @@ int main(int argc, const char **argv) {
     // The remaining argument should be the URL
     if (argc > 0) {
         url = argv[0];
+        method = argv[1];
+        data = argv[2];
+    }
+    // //NULL check
+    if (url == NULL) {
+        printf("url is NULL\n");
+        exit(EXIT_SUCCESS);
     }
 
-    if (url) {
-        printf("URL: %s\n", url);
-    }
-    if (output_file) {
-        printf("Output file: %s\n", output_file);
-    }
-    if (verbose) {
-        printf("Verbose mode: on\n");
-    }
-    if (follow_redirects) {
-        printf("Follow redirects: yes\n");
-    }
-    if (user_agent) {
-        printf("User-Agent: %s\n", user_agent);
-    }
+    send_http_request(url,method,data);
+
     return 0;
 }
+
+/*
+ * implement GET (https://www.w3schools.com/nodejs/nodejs_http.asp?pss=2e3)
+ *
+ * steps:
+    1- get parameter from user
+    2- basic url handling
+    3- create http request
+    4- send request
+    5- start timeout timer
+    6- print response/error
+ * */
