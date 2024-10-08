@@ -7,8 +7,6 @@
 #include <errno.h>
 #include <stdlib.h>
 
-int err = 0;
-
 static const char *const usages[] = {
     "tcurl [options] <url>",
     NULL,
@@ -60,7 +58,13 @@ int main(int argc, const char **argv) {
         exit(EXIT_SUCCESS);
     }
 
-    send_http_request(url,method,data);
+    send_http_request(url, method, data);
+
+    int socket = socket_create("126.23.22.43", 10);
+    if (socket == -1) {
+        printf("socket error: %d \n", errno);
+        exit(EXIT_FAILURE);
+    }
 
     return 0;
 }

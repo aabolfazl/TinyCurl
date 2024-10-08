@@ -4,11 +4,13 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <sys/errno.h>
 
 #define BUFFER_SIZE 4096
 
 // Function to send a GET or POST request using plain sockets (HTTP)
-void send_http_request(const char* host, const char* method, const char* path, const char* data) {
+void send_http_request(const char *host, const char *method, const char *path, const char *data) {
     struct addrinfo hints, *res;
     int sockfd;
     char request[BUFFER_SIZE];
@@ -82,4 +84,32 @@ void send_http_request(const char* host, const char* method, const char* path, c
     // Clean up
     freeaddrinfo(res);
     close(sockfd);
+}
+
+int socket_create(const char *host, int port) {
+    struct addrinfo hints, *result;
+    int socket_fd;
+    char port_str[6];
+
+    snprintf(port_str, sizeof(port_str), "%d", port);
+
+    memset(&hints, 0, sizeof hints);
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+
+    int status = getaddrinfo(host, port_str, &hints, &result);
+    if (status != 0) {
+        fprintf(stderr, "getaddrinfo error: %s\n", gai_strerror(status));
+        return status;
+    }
+
+    socket_fd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+    if (socket_fd == -1) {
+        freeaddrinfo(result);
+        return socket_fd;
+    }
+
+    freeaddrinfo(result);
+
+    return socket_fd;
 }
