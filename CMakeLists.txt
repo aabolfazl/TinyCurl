@@ -6,7 +6,9 @@ set(CMAKE_C_STANDARD 11)
 add_subdirectory(libs/arg_parse)
 
 add_executable(tcurl src/main.c src/socket.c
-        src/socket.h)
+        src/socket.h
+        src/send_http_request.c
+        src/send_http_request.h)
 
 target_link_libraries(tcurl PRIVATE argparse)
 
