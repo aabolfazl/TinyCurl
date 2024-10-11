@@ -5,5 +5,5 @@
 #ifndef TCURL_SOCKET_H
 #define TCURL_SOCKET_H
 
-void send_http_request(const char* host, const char* method, const char* data);
+void send_http_request1(const char* host, const char* method, const char* data);
 #endif //TCURL_SOCKET_H
