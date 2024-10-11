@@ -8,7 +8,7 @@
 #define BUFFER_SIZE 4096
 
 // Function to send a GET or POST request using plain sockets (HTTP)
-void send_http_request(const char* host, const char* method, const char* path, const char* data) {
+void send_http_request1(const char* host, const char* method, const char* path, const char* data) {
     struct addrinfo hints, *res;
     int sockfd;
     char request[BUFFER_SIZE];
