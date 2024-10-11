@@ -1,12 +1,12 @@
 #include <ctype.h>
 #include <stdio.h>
-#include "arg_parse.h"
+#include "../libs/arg_parse/arg_parse.h"
 #include "socket.h"
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
 #include <stdlib.h>
-
+#include "send_http_request.h"
 int err = 0;
 
 static const char *const usages[] = {
@@ -60,7 +60,7 @@ int main(int argc, const char **argv) {
         exit(EXIT_SUCCESS);
     }
 
-    send_http_request(url,method,data);
+    send_http_request1(url,method,data);
 
     return 0;
 }
