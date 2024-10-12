@@ -142,29 +142,77 @@ argparse/fast:
 	$(MAKE) $(MAKESILENT) -f libs/arg_parse/CMakeFiles/argparse.dir/build.make libs/arg_parse/CMakeFiles/argparse.dir/build
 .PHONY : argparse/fast
 
-main.o: main.c.o
-.PHONY : main.o
+src/main.o: src/main.c.o
+.PHONY : src/main.o
 
 # target to build an object file
-main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/main.c.o
-.PHONY : main.c.o
+src/main.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/main.c.o
+.PHONY : src/main.c.o
 
-main.i: main.c.i
-.PHONY : main.i
+src/main.i: src/main.c.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/main.c.i
-.PHONY : main.c.i
+src/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/main.c.i
+.PHONY : src/main.c.i
 
-main.s: main.c.s
-.PHONY : main.s
+src/main.s: src/main.c.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/main.c.s
-.PHONY : main.c.s
+src/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/main.c.s
+.PHONY : src/main.c.s
+
+src/send_http_request.o: src/send_http_request.c.o
+.PHONY : src/send_http_request.o
+
+# target to build an object file
+src/send_http_request.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/send_http_request.c.o
+.PHONY : src/send_http_request.c.o
+
+src/send_http_request.i: src/send_http_request.c.i
+.PHONY : src/send_http_request.i
+
+# target to preprocess a source file
+src/send_http_request.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/send_http_request.c.i
+.PHONY : src/send_http_request.c.i
+
+src/send_http_request.s: src/send_http_request.c.s
+.PHONY : src/send_http_request.s
+
+# target to generate assembly for a file
+src/send_http_request.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/send_http_request.c.s
+.PHONY : src/send_http_request.c.s
+
+src/socket.o: src/socket.c.o
+.PHONY : src/socket.o
+
+# target to build an object file
+src/socket.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/socket.c.o
+.PHONY : src/socket.c.o
+
+src/socket.i: src/socket.c.i
+.PHONY : src/socket.i
+
+# target to preprocess a source file
+src/socket.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/socket.c.i
+.PHONY : src/socket.c.i
+
+src/socket.s: src/socket.c.s
+.PHONY : src/socket.s
+
+# target to generate assembly for a file
+src/socket.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/socket.c.s
+.PHONY : src/socket.c.s
 
 # Help Target
 help:
@@ -176,9 +224,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... argparse"
 	@echo "... tcurl"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
+	@echo "... src/send_http_request.o"
+	@echo "... src/send_http_request.i"
+	@echo "... src/send_http_request.s"
+	@echo "... src/socket.o"
+	@echo "... src/socket.i"
+	@echo "... src/socket.s"
 .PHONY : help
 
 

@@ -1,1 +1,1 @@
-/usr/bin/cc CMakeFiles/tcurl.dir/main.c.o -o tcurl  libs/arg_parse/libargparse.a 
+/usr/bin/cc CMakeFiles/tcurl.dir/src/main.c.o CMakeFiles/tcurl.dir/src/socket.c.o CMakeFiles/tcurl.dir/src/send_http_request.c.o -o tcurl  libs/arg_parse/libargparse.a 

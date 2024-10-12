@@ -12,17 +12,21 @@
 
 
 //project library
-#include "libs/arg_parse/arg_parse.h"
+#include "../libs/arg_parse/arg_parse.h"
+#include "socket.h"
+#include "send_http_request.h"
 
 
 
- 
 static const char *const usages[] = {
     "tcurl [options] <url>",
     NULL,
 };
 
 int main(int argc, const char **argv) {
+    char ip[100];
+    const char *path = NULL;
+    const char *method = NULL;
     const char *url = NULL;
     const char *output_file = NULL;
     int verbose = 0;
@@ -51,22 +55,10 @@ int main(int argc, const char **argv) {
     // The remaining argument should be the URL
     if (argc > 0) {
         url = argv[0];
+        method = argv[1];
+        path = argv[2];
     }
-
-    if (url) {
-        printf("URL: %s\n", url);
-    }
-    if (output_file) {
-        printf("Output file: %s\n", output_file);
-    }
-    if (verbose) {
-        printf("Verbose mode: on\n");
-    }
-    if (follow_redirects) {
-        printf("Follow redirects: yes\n");
-    }
-    if (user_agent) {
-        printf("User-Agent: %s\n", user_agent);
-    }
+    socketfd(ip);
+    printf("%s\n%s\n%s\n",url,method,path);
     return 0;
 }

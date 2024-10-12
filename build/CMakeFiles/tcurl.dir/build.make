@@ -69,32 +69,64 @@ include CMakeFiles/tcurl.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/tcurl.dir/flags.make
 
-CMakeFiles/tcurl.dir/main.c.o: CMakeFiles/tcurl.dir/flags.make
-CMakeFiles/tcurl.dir/main.c.o: /home/bitwise-brew/Desktop/C_projects/TinyCurl/main.c
-CMakeFiles/tcurl.dir/main.c.o: CMakeFiles/tcurl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/tcurl.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/tcurl.dir/main.c.o -MF CMakeFiles/tcurl.dir/main.c.o.d -o CMakeFiles/tcurl.dir/main.c.o -c /home/bitwise-brew/Desktop/C_projects/TinyCurl/main.c
+CMakeFiles/tcurl.dir/src/main.c.o: CMakeFiles/tcurl.dir/flags.make
+CMakeFiles/tcurl.dir/src/main.c.o: /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/main.c
+CMakeFiles/tcurl.dir/src/main.c.o: CMakeFiles/tcurl.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/tcurl.dir/src/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/tcurl.dir/src/main.c.o -MF CMakeFiles/tcurl.dir/src/main.c.o.d -o CMakeFiles/tcurl.dir/src/main.c.o -c /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/main.c
 
-CMakeFiles/tcurl.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/tcurl.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/bitwise-brew/Desktop/C_projects/TinyCurl/main.c > CMakeFiles/tcurl.dir/main.c.i
+CMakeFiles/tcurl.dir/src/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/tcurl.dir/src/main.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/main.c > CMakeFiles/tcurl.dir/src/main.c.i
 
-CMakeFiles/tcurl.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/tcurl.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bitwise-brew/Desktop/C_projects/TinyCurl/main.c -o CMakeFiles/tcurl.dir/main.c.s
+CMakeFiles/tcurl.dir/src/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/tcurl.dir/src/main.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/main.c -o CMakeFiles/tcurl.dir/src/main.c.s
+
+CMakeFiles/tcurl.dir/src/socket.c.o: CMakeFiles/tcurl.dir/flags.make
+CMakeFiles/tcurl.dir/src/socket.c.o: /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/socket.c
+CMakeFiles/tcurl.dir/src/socket.c.o: CMakeFiles/tcurl.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/tcurl.dir/src/socket.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/tcurl.dir/src/socket.c.o -MF CMakeFiles/tcurl.dir/src/socket.c.o.d -o CMakeFiles/tcurl.dir/src/socket.c.o -c /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/socket.c
+
+CMakeFiles/tcurl.dir/src/socket.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/tcurl.dir/src/socket.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/socket.c > CMakeFiles/tcurl.dir/src/socket.c.i
+
+CMakeFiles/tcurl.dir/src/socket.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/tcurl.dir/src/socket.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/socket.c -o CMakeFiles/tcurl.dir/src/socket.c.s
+
+CMakeFiles/tcurl.dir/src/send_http_request.c.o: CMakeFiles/tcurl.dir/flags.make
+CMakeFiles/tcurl.dir/src/send_http_request.c.o: /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/send_http_request.c
+CMakeFiles/tcurl.dir/src/send_http_request.c.o: CMakeFiles/tcurl.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/tcurl.dir/src/send_http_request.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/tcurl.dir/src/send_http_request.c.o -MF CMakeFiles/tcurl.dir/src/send_http_request.c.o.d -o CMakeFiles/tcurl.dir/src/send_http_request.c.o -c /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/send_http_request.c
+
+CMakeFiles/tcurl.dir/src/send_http_request.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/tcurl.dir/src/send_http_request.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/send_http_request.c > CMakeFiles/tcurl.dir/src/send_http_request.c.i
+
+CMakeFiles/tcurl.dir/src/send_http_request.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/tcurl.dir/src/send_http_request.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bitwise-brew/Desktop/C_projects/TinyCurl/src/send_http_request.c -o CMakeFiles/tcurl.dir/src/send_http_request.c.s
 
 # Object files for target tcurl
 tcurl_OBJECTS = \
-"CMakeFiles/tcurl.dir/main.c.o"
+"CMakeFiles/tcurl.dir/src/main.c.o" \
+"CMakeFiles/tcurl.dir/src/socket.c.o" \
+"CMakeFiles/tcurl.dir/src/send_http_request.c.o"
 
 # External object files for target tcurl
 tcurl_EXTERNAL_OBJECTS =
 
-tcurl: CMakeFiles/tcurl.dir/main.c.o
+tcurl: CMakeFiles/tcurl.dir/src/main.c.o
+tcurl: CMakeFiles/tcurl.dir/src/socket.c.o
+tcurl: CMakeFiles/tcurl.dir/src/send_http_request.c.o
 tcurl: CMakeFiles/tcurl.dir/build.make
 tcurl: libs/arg_parse/libargparse.a
 tcurl: CMakeFiles/tcurl.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable tcurl"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable tcurl"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tcurl.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
