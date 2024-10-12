@@ -1,0 +1,4 @@
+#ifndef SEND_HTTP_REQUEST_H
+#define SEND_HTTP_REQUEST_H
+
+#endif //SEND_HTTP_REQUEST_H
