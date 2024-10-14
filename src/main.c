@@ -16,7 +16,23 @@
 #include "socket.h"
 #include "send_http_request.h"
 
+//Definitions
+#define BUFFER_SIZE 4096
 
+
+int resolve_domain(const char *host, char *ip) {
+    struct hostent *he;
+    struct in_addr **addr_list;
+
+    if ((he = gethostbyname(host)) == NULL) {
+        perror("DNS resolution failed");
+        return 1;
+    }
+
+    addr_list = (struct in_addr **) he->h_addr_list;
+    strcpy(ip, inet_ntoa(*addr_list[0]));
+    return 0;
+}
 
 static const char *const usages[] = {
     "tcurl [options] <url>",
@@ -24,6 +40,9 @@ static const char *const usages[] = {
 };
 
 int main(int argc, const char **argv) {
+    char request[BUFFER_SIZE];
+    char response[BUFFER_SIZE];
+    char post_data[] = "key1=value1&key2=value2";
     char ip[100];
     const char *path = NULL;
     const char *method = NULL;
@@ -32,7 +51,7 @@ int main(int argc, const char **argv) {
     int verbose = 0;
     int follow_redirects = 0;
     const char *user_agent = NULL;
-    int timeout = 30;  // Default timeout in seconds
+    int timeout = 30; // Default timeout in seconds
     const char *request_method = "GET";
 
     struct argparse_option options[] = {
@@ -51,14 +70,33 @@ int main(int argc, const char **argv) {
                       "\nThis program sends HTTP requests and displays the responses.");
 
     argc = argparse_parse(&argparse, argc, argv);
+    
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s <URL> <GET/POST> <path>\n", argv[0]);
+        return EXIT_FAILURE;
+    }
 
-    // The remaining argument should be the URL
     if (argc > 0) {
         url = argv[0];
         method = argv[1];
         path = argv[2];
     }
-    socketfd(ip);
-    printf("%s\n%s\n%s\n",url,method,path);
+    
+    struct in_addr addr;
+    if (inet_pton(AF_INET, url, &addr) == 1) {
+            strcpy(ip, url);
+    } else {
+    if (resolve_domain(url, ip) != 0) {
+            fprintf(stderr, "Failed to resolve domain: %s\n", url);
+            return EXIT_FAILURE;
+        }
+    }
+
+    //Code :
+
+    int socket = socketfd();    
+   
+    send_http_request(socket,ip,url,method,path);
+
     return 0;
 }
