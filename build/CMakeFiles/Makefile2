@@ -98,12 +98,12 @@ libs/arg_parse/clean: libs/arg_parse/CMakeFiles/argparse.dir/clean
 CMakeFiles/tcurl.dir/all: libs/arg_parse/CMakeFiles/argparse.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles --progress-num=3,4,5,6 "Built target tcurl"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles --progress-num=3,4,5 "Built target tcurl"
 .PHONY : CMakeFiles/tcurl.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tcurl.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/tcurl.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bitwise-brew/Desktop/C_projects/TinyCurl/build/CMakeFiles 0
 .PHONY : CMakeFiles/tcurl.dir/rule

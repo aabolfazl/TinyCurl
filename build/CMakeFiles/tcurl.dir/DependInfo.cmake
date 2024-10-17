@@ -9,7 +9,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/bitwise-brew/Desktop/C_projects/TinyCurl/src/main.c" "CMakeFiles/tcurl.dir/src/main.c.o" "gcc" "CMakeFiles/tcurl.dir/src/main.c.o.d"
-  "/home/bitwise-brew/Desktop/C_projects/TinyCurl/src/send_http_request.c" "CMakeFiles/tcurl.dir/src/send_http_request.c.o" "gcc" "CMakeFiles/tcurl.dir/src/send_http_request.c.o.d"
   "/home/bitwise-brew/Desktop/C_projects/TinyCurl/src/socket.c" "CMakeFiles/tcurl.dir/src/socket.c.o" "gcc" "CMakeFiles/tcurl.dir/src/socket.c.o.d"
   )
 

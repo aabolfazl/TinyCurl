@@ -166,30 +166,6 @@ src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/main.c.s
 .PHONY : src/main.c.s
 
-src/send_http_request.o: src/send_http_request.c.o
-.PHONY : src/send_http_request.o
-
-# target to build an object file
-src/send_http_request.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/send_http_request.c.o
-.PHONY : src/send_http_request.c.o
-
-src/send_http_request.i: src/send_http_request.c.i
-.PHONY : src/send_http_request.i
-
-# target to preprocess a source file
-src/send_http_request.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/send_http_request.c.i
-.PHONY : src/send_http_request.c.i
-
-src/send_http_request.s: src/send_http_request.c.s
-.PHONY : src/send_http_request.s
-
-# target to generate assembly for a file
-src/send_http_request.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcurl.dir/build.make CMakeFiles/tcurl.dir/src/send_http_request.c.s
-.PHONY : src/send_http_request.c.s
-
 src/socket.o: src/socket.c.o
 .PHONY : src/socket.o
 
@@ -227,9 +203,6 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/send_http_request.o"
-	@echo "... src/send_http_request.i"
-	@echo "... src/send_http_request.s"
 	@echo "... src/socket.o"
 	@echo "... src/socket.i"
 	@echo "... src/socket.s"

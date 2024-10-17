@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/tcurl.dir/src/main.c.o"
   "CMakeFiles/tcurl.dir/src/main.c.o.d"
-  "CMakeFiles/tcurl.dir/src/send_http_request.c.o"
-  "CMakeFiles/tcurl.dir/src/send_http_request.c.o.d"
   "CMakeFiles/tcurl.dir/src/socket.c.o"
   "CMakeFiles/tcurl.dir/src/socket.c.o.d"
   "tcurl"
