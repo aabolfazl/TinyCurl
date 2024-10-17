@@ -100,7 +100,7 @@ int main(int argc, const char **argv) {
     int socket = create_socket(ip);     
     socket_connect(socket,ip); 
     socket_send_recv(socket,url,method,path);
-    
+    close(socket);  
     
     return 0;
 }
