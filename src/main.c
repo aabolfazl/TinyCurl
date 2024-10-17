@@ -1,4 +1,5 @@
 //C library
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -14,7 +15,7 @@
 //project library
 #include "../libs/arg_parse/arg_parse.h"
 #include "socket.h"
-#include "send_http_request.h"
+
 
 //Definitions
 #define BUFFER_SIZE 4096
@@ -71,15 +72,18 @@ int main(int argc, const char **argv) {
 
     argc = argparse_parse(&argparse, argc, argv);
     
-    if (argc != 3) {
-        fprintf(stderr, "Usage: %s <URL> <GET/POST> <path>\n", argv[0]);
-        return EXIT_FAILURE;
+    if (argc == 0) {
+        printf("Type -h for showing help menu\nUsage: <URL> <GET/POST> <path(optional)>\n");
+        return EXIT_SUCCESS;
     }
 
     if (argc > 0) {
         url = argv[0];
         method = argv[1];
         path = argv[2];
+        if(path == NULL){
+            path = "/";
+        }
     }
     
     struct in_addr addr;
@@ -93,10 +97,10 @@ int main(int argc, const char **argv) {
     }
 
     //Code :
-
-    int socket = socketfd();    
-   
-    send_http_request(socket,ip,url,method,path);
-
+    int socket = create_socket(ip);     
+    socket_connect(socket,ip); 
+    socket_send_recv(socket,url,method,path);
+    
+    
     return 0;
 }
