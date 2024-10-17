@@ -8,11 +8,8 @@ add_subdirectory(libs/arg_parse)
 
 add_executable(tcurl src/main.c
         src/socket.h
-        src/socket.c
-        src/send_http_request.c
-        src/send_http_request.h
-
-)
+        src/socket.c 
+    )
 
 target_link_libraries(tcurl PRIVATE argparse)
 
