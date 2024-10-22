@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <netdb.h>
@@ -33,11 +34,11 @@ void socket_connect(int __socketFileDescriptor,const char *ip){
     printf("Connection secured!\n");
 }
 
-
-void socket_send_recv(int createdSocket,const char *host, const char *method, const char *path) {
+void socket_send_recv(int createdSocket, const char *host, const char *method, const char *path) {
     char request[BUFFER_SIZE];
     char response[BUFFER_SIZE];
     char post_data[] = "key1=value1&key2=value2";
+    int total_received = 0;
     
     if (strcmp(method, "GET") == 0) {
         snprintf(request, sizeof(request), "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", path, host);
@@ -56,14 +57,48 @@ void socket_send_recv(int createdSocket,const char *host, const char *method, co
         exit(EXIT_FAILURE);
     }
 
-    send(createdSocket, request, strlen(request), 0);
-    printf("Send was Successfully!\n");
+    int __sendResult = send(createdSocket, request, strlen(request), 0);
+    if(__sendResult < 0) {
+        printf("Send was unsuccessful!\n");
+        close(createdSocket);
+        exit(EXIT_FAILURE);
+    }
+    printf("Send was successful!\n");
 
     printf("Response:\n");
-    while (recv(createdSocket, response, sizeof(response) - 1, 0) > 0) {
-        printf("%s\n", response);
-        memset(response, 0, sizeof(response));
+
+    int received, content_length = -1;
+    char *content_ptr = NULL;
+    while ((received = recv(createdSocket, response + total_received, sizeof(response) - total_received - 1, 0)) > 0) {
+        total_received += received;
+        response[total_received] = '\0'; 
+        
+        if (content_length == -1) {
+            char *content_length_str = strstr(response, "Content-Length:");
+            if (content_length_str) {
+                sscanf(content_length_str, "Content-Length: %d", &content_length);
+                content_ptr = strstr(response, "\r\n\r\n") + 4;  
+                if (content_ptr) {
+                    int header_size = content_ptr - response;
+                    int body_size = total_received - header_size;
+                    if (body_size >= content_length) break;
+                }
+            }
+        } else {
+            if (total_received - (content_ptr - response) >= content_length) {
+                break; 
+            }
+        }
     }
 
+    if (received < 0) {
+        printf("Receive was unsuccessful!\n");
+        close(createdSocket);
+        exit(EXIT_FAILURE);
+    } else {
+        printf("%s", response);
+    }
+    
+    close(createdSocket);
 }
 
