@@ -79,6 +79,9 @@ int main(int argc, const char **argv) {
 
     if (argc > 0) {
         url = argv[0];
+        if(strncmp(url,"http://",7)==0){
+            url += 7;
+        }
         method = argv[1];
         path = argv[2];
         if(path == NULL){
