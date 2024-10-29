@@ -10,31 +10,31 @@
 #define BUFFER_SIZE 4096
 
 int create_socket(const char *ip) { 
-    int __socketFileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
-    if (__socketFileDescriptor < 0) {
+    int socketFileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
+    if (socketFileDescriptor < 0) {
         perror("Socket creation failed\n");
         exit(EXIT_FAILURE);
     }
     printf("Socket successfully created!\n");  
-    return __socketFileDescriptor;
+    return socketFileDescriptor;
 }
 
-void socket_connect(int __socketFileDescriptor,const char *ip){
+void socket_connect(int socketFileDescriptor,const char *ip){
     struct sockaddr_in server_addr; 
 
     server_addr.sin_family = AF_INET ;
     server_addr.sin_port = htons(80);
     inet_pton(AF_INET,ip , &server_addr.sin_addr);
      
-    if (connect(__socketFileDescriptor, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
+    if (connect(socketFileDescriptor, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         perror("Connection failed");
-        close(__socketFileDescriptor);
+        close(socketFileDescriptor);
         exit(EXIT_FAILURE);
     }
     printf("Connection secured!\n");
 }
 
-void socket_send_recv(int createdSocket, const char *host, const char *method, const char *path) {
+void socket_send_recv(int socketFileDescriptor, const char *host, const char *method, const char *path) {
     char request[BUFFER_SIZE];
     char response[BUFFER_SIZE];
     char post_data[] = "key1=value1&key2=value2";
@@ -53,14 +53,14 @@ void socket_send_recv(int createdSocket, const char *host, const char *method, c
             path, host, strlen(post_data), post_data);
     } else {
         fprintf(stderr, "Unsupported method: %s\n", method);
-        close(createdSocket);
+        close(socketFileDescriptor);
         exit(EXIT_FAILURE);
     }
 
-    int __sendResult = send(createdSocket, request, strlen(request), 0);
-    if(__sendResult < 0) {
+    int sendRequest = send(socketFileDescriptor, request, strlen(request), 0);
+    if(sendRequest < 0) {
         printf("Send was unsuccessful!\n");
-        close(createdSocket);
+        close(socketFileDescriptor);
         exit(EXIT_FAILURE);
     }
     printf("Send was successful!\n");
@@ -69,7 +69,7 @@ void socket_send_recv(int createdSocket, const char *host, const char *method, c
 
     int received, content_length = -1;
     char *content_ptr = NULL;
-    while ((received = recv(createdSocket, response + total_received, sizeof(response) - total_received - 1, 0)) > 0) {
+    while ((received = recv(socketFileDescriptor, response + total_received, sizeof(response) - total_received - 1, 0)) > 0) {
         total_received += received;
         response[total_received] = '\0'; 
         
@@ -93,12 +93,12 @@ void socket_send_recv(int createdSocket, const char *host, const char *method, c
 
     if (received < 0) {
         printf("Receive was unsuccessful!\n");
-        close(createdSocket);
+        close(socketFileDescriptor);
         exit(EXIT_FAILURE);
     } else {
         printf("%s", response);
     }
     
-    close(createdSocket);
+    close(socketFileDescriptor);
 }
 

@@ -83,6 +83,9 @@ int main(int argc, const char **argv) {
             url += 7;
         }
         method = argv[1];
+        if(method == NULL){
+            method = "GET";
+        }
         path = argv[2];
         if(path == NULL){
             path = "/";
