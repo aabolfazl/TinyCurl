@@ -84,7 +84,7 @@ int main(int argc, const char **argv) {
         }
         method = argv[1];
         if(method == NULL){
-            method = "GET";
+            method = request_method;
         }
         path = argv[2];
         if(path == NULL){
