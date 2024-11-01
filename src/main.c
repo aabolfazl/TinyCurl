@@ -1,11 +1,17 @@
 #include <ctype.h>
+#include <netinet/in.h>
 #include <stdio.h>
-#include "arg_parse.h"
+#include "../libs/arg_parse/arg_parse.h"
 #include "socket.h"
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <stdlib.h>
+
+#define BUFFER_SIZE 4096
 
 static const char *const usages[] = {
     "tcurl [options] <url>",
@@ -15,7 +21,10 @@ static const char *const usages[] = {
 int main(int argc, const char **argv) {
     const char *url = NULL;
     const char *method = NULL;
-    const char *data = NULL;
+    const char *port = "80";
+    const char *data = argc == 4 ? argv[3] : ""; 
+    char hostname[256];
+    char path[256];
     const char *user_agent = NULL;
     int timeout = 30;
     const char *request_method = "GET";
@@ -47,24 +56,45 @@ int main(int argc, const char **argv) {
     argc = argparse_parse(&argparse, argc, argv);
 
     // The remaining argument should be the URL
-    if (argc > 0) {
-        url = argv[0];
-        method = argv[1];
-        data = argv[2];
+    if(argv[1] == NULL){
+        printf("NULL\n");
+        return -1;
     }
-    // //NULL check
-    if (url == NULL) {
-        printf("url is NULL\n");
-        exit(EXIT_SUCCESS);
+    url = argv[0];
+    method = argv[1];
+    parse_url(url,hostname,path);
+    
+    int sockfd = create_socket();
+
+
+    struct sockaddr_in server_addr;
+
+    if (is_ip_address(hostname)) {
+        server_addr.sin_family = AF_INET;
+        server_addr.sin_port = htons(atoi(port));
+        if (inet_pton(AF_INET, hostname, &server_addr.sin_addr) <= 0) {
+            error_exit("Invalid IP address");
+        }
+        connect_socket(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+    } else {
+        struct addrinfo hints, *res;
+        memset(&hints, 0, sizeof hints);
+        hints.ai_family = AF_INET;
+        hints.ai_socktype = SOCK_STREAM;
+        if (getaddrinfo(hostname, port, &hints, &res) != 0) {
+            error_exit("getaddrinfo failed");
+        }
+        connect_socket(sockfd, res->ai_addr, res->ai_addrlen);
+        freeaddrinfo(res);
     }
 
-    send_http_request(url, method, data);
 
-    int socket = socket_create("126.23.22.43", 10);
-    if (socket == -1) {
-        printf("socket error: %d \n", errno);
-        exit(EXIT_FAILURE);
-    }
+    char request[BUFFER_SIZE];
+    build_http_request(method, hostname, path, data, request);
+    send_request(sockfd, request);
+    receive_response(sockfd);
+    close(sockfd);
+    
 
     return 0;
 }
