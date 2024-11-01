@@ -4,20 +4,15 @@
 
 #ifndef TCURL_SOCKET_H
 #define TCURL_SOCKET_H
+#include <netinet/in.h>
 
-void send_http_request(const char *host, const char *method, const char *data);
-
-int socket_create(const char *host, int port);
-
-int socket_connect();
-
-int socket_getPost();
-
-int socket_send();
-
-int socket_recv();
-
-int socket_close();
-
+void error_exit(const char *message);
+void parse_url(const char *url, char *hostname, char *path);
+int is_ip_address(const char *hostname);
+int create_socket();
+void connect_socket(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+void send_request(int sockfd, const char *request);
+void receive_response(int sockfd);
+void build_http_request(const char *method, const char *hostname, const char *path, const char *data, char *request);
 
 #endif //TCURL_SOCKET_H
