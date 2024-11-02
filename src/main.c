@@ -28,6 +28,7 @@ int main(int argc, const char **argv) {
     const char *user_agent = NULL;
     int timeout = 30;
     const char *request_method = "GET";
+    const char *prefix = "http://";
     // https://3426f4e2-5ba9-473a-bb4d-e221023be581.mock.pstmn.io
 
 
@@ -56,43 +57,49 @@ int main(int argc, const char **argv) {
     argc = argparse_parse(&argparse, argc, argv);
 
     // The remaining argument should be the URL
-    if(argv[1] == NULL){
+    if(argv[0] == NULL){
         printf("NULL\n");
         return -1;
     }
     url = argv[0];
+    if(strncmp(url,prefix,7)==0){
+            url += 7;
+        }
     method = argv[1];
-    parse_url(url,hostname,path);
+    if(method == NULL){
+        method = "GET";
+    }
+    parseUrl(url,hostname,path);
     
-    int sockfd = create_socket();
+    int sockfd = createSocket();
 
 
     struct sockaddr_in server_addr;
 
-    if (is_ip_address(hostname)) {
+    if (isIpAddress(hostname)) {
         server_addr.sin_family = AF_INET;
         server_addr.sin_port = htons(atoi(port));
         if (inet_pton(AF_INET, hostname, &server_addr.sin_addr) <= 0) {
-            error_exit("Invalid IP address");
+            errorExit("Invalid IP address");
         }
-        connect_socket(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+        connectSocket(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
     } else {
         struct addrinfo hints, *res;
         memset(&hints, 0, sizeof hints);
         hints.ai_family = AF_INET;
         hints.ai_socktype = SOCK_STREAM;
         if (getaddrinfo(hostname, port, &hints, &res) != 0) {
-            error_exit("getaddrinfo failed");
+            errorExit("getaddrinfo failed");
         }
-        connect_socket(sockfd, res->ai_addr, res->ai_addrlen);
+        connectSocket(sockfd, res->ai_addr, res->ai_addrlen);
         freeaddrinfo(res);
     }
 
 
     char request[BUFFER_SIZE];
-    build_http_request(method, hostname, path, data, request);
-    send_request(sockfd, request);
-    receive_response(sockfd);
+    receiveHttpRequest(method, hostname, path, data, request);
+    sendRequest(sockfd, request);
+    receiveResponse(sockfd);
     close(sockfd);
     
 
