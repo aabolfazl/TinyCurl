@@ -9,12 +9,12 @@
 
 #define BUFFER_SIZE 4096
 
-void errorExit(const char *message) {
+void error_exit(const char *message) {
     perror(message);
     exit(EXIT_FAILURE);
 }
 
-void parseUrl(const char *url, char *hostname, char *path) {
+void parse_url(const char *url, char *hostname, char *path) {
     const char *slash = strchr(url, '/');
     if (slash) {
         strncpy(hostname, url, slash - url);
@@ -26,34 +26,34 @@ void parseUrl(const char *url, char *hostname, char *path) {
     }
 }
 
-int isIpAddress(const char *hostname) {
+int is_ip_address(const char *hostname) {
     struct sockaddr_in sa;
     return inet_pton(AF_INET, hostname, &(sa.sin_addr)) == 1;
 }
 
-int createSocket() {
+int create_socket() {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
-        errorExit("Socket creation failed");
+        error_exit("Socket creation failed");
     }
     return sockfd;
 }
 
-void connectSocket(int sockfd, const struct sockaddr *addr, socklen_t addrlen) {
+void connect_socket(int sockfd, const struct sockaddr *addr, socklen_t addrlen) {
     if (connect(sockfd, addr, addrlen) < 0) {
         close(sockfd);
-        errorExit("Connection failed");
+        error_exit("Connection failed");
     }
 }
 
-void sendRequest(int sockfd, const char *request) {
+void send_request(int sockfd, const char *request) {
     if (send(sockfd, request, strlen(request), 0) < 0) {
         close(sockfd);
-        errorExit("Send failed");
+        error_exit("Send failed");
     }
 }
 
-void receiveResponse(int sockfd) {
+void receive_response(int sockfd) {
     char response[BUFFER_SIZE];
     ssize_t bytes_received;
     while ((bytes_received = recv(sockfd, response, sizeof(response) - 1, 0)) > 0) {
@@ -62,11 +62,11 @@ void receiveResponse(int sockfd) {
     }
 
     if (bytes_received < 0) {
-        errorExit("Receive failed");
+        error_exit("Receive failed");
     }
 }
 
-void receiveHttpRequest(const char *method, const char *hostname, const char *path, const char *data, char *request) {
+void receive_http_request(const char *method, const char *hostname, const char *path, const char *data, char *request) {
     if (strcasecmp(method, "POST") == 0) {
         snprintf(request, BUFFER_SIZE,
                  "POST %s HTTP/1.1\r\n"
