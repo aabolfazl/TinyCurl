@@ -38,7 +38,6 @@ int main(int argc, const char **argv) {
     // Accept: */*
 
     //    tcurl http://google.com/
-
     struct argparse_option options[] = {
         OPT_HELP(),
         OPT_GROUP("Basic options"),
@@ -57,11 +56,11 @@ int main(int argc, const char **argv) {
     argc = argparse_parse(&argparse, argc, argv);
 
     // The remaining argument should be the URL
-    if(argv[0] == NULL){
-        printf("NULL\n");
-        return -1;
-    }
     url = argv[0];
+    if(url == NULL){
+        printf("./tcurl <hostname> <GET/POST>\nOr type -h for help!\n");
+        return 0;
+    }
     if(strncmp(url,prefix,7)==0){
             url += 7;
         }
@@ -69,37 +68,37 @@ int main(int argc, const char **argv) {
     if(method == NULL){
         method = "GET";
     }
-    parseUrl(url,hostname,path);
+    parse_url(url,hostname,path);
     
-    int sockfd = createSocket();
+    int sockfd = create_socket();
 
 
     struct sockaddr_in server_addr;
 
-    if (isIpAddress(hostname)) {
+    if (is_ip_address(hostname)) {
         server_addr.sin_family = AF_INET;
         server_addr.sin_port = htons(atoi(port));
         if (inet_pton(AF_INET, hostname, &server_addr.sin_addr) <= 0) {
-            errorExit("Invalid IP address");
+            error_exit("Invalid IP address");
         }
-        connectSocket(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+        connect_socket(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
     } else {
         struct addrinfo hints, *res;
         memset(&hints, 0, sizeof hints);
         hints.ai_family = AF_INET;
         hints.ai_socktype = SOCK_STREAM;
         if (getaddrinfo(hostname, port, &hints, &res) != 0) {
-            errorExit("getaddrinfo failed");
+            error_exit("getaddrinfo failed");
         }
-        connectSocket(sockfd, res->ai_addr, res->ai_addrlen);
+        connect_socket(sockfd, res->ai_addr, res->ai_addrlen);
         freeaddrinfo(res);
     }
 
 
     char request[BUFFER_SIZE];
-    receiveHttpRequest(method, hostname, path, data, request);
-    sendRequest(sockfd, request);
-    receiveResponse(sockfd);
+    receive_http_request(method, hostname, path, data, request);
+    send_request(sockfd, request);
+    receive_response(sockfd);
     close(sockfd);
     
 
