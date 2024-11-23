@@ -19,16 +19,9 @@ static const char *const usages[] = {
 };
 
 int main(int argc, const char **argv) {
-    const char *url = NULL;
-    const char *method = NULL;
-    const char *port = "80";
-    const char *data = argc == 4 ? argv[3] : ""; 
-    char hostname[256];
-    char path[256];
     const char *user_agent = NULL;
     int timeout = 30;
     const char *request_method = "GET";
-    const char *prefix = "http://";
     // https://3426f4e2-5ba9-473a-bb4d-e221023be581.mock.pstmn.io
 
 
@@ -54,53 +47,6 @@ int main(int argc, const char **argv) {
                       "\nThis program sends HTTP requests and displays the responses.");
 
     argc = argparse_parse(&argparse, argc, argv);
-
-    // The remaining argument should be the URL
-    url = argv[0];
-    if(url == NULL){
-        printf("./tcurl <hostname> <GET/POST>\nOr type -h for help!\n");
-        return 0;
-    }
-    if(strncmp(url,prefix,7)==0){
-            url += 7;
-        }
-    method = argv[1];
-    if(method == NULL){
-        method = "GET";
-    }
-    parse_url(url,hostname,path);
-    
-    int sockfd = create_socket();
-
-
-    struct sockaddr_in server_addr;
-
-    if (is_ip_address(hostname)) {
-        server_addr.sin_family = AF_INET;
-        server_addr.sin_port = htons(atoi(port));
-        if (inet_pton(AF_INET, hostname, &server_addr.sin_addr) <= 0) {
-            error_exit("Invalid IP address");
-        }
-        connect_socket(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
-    } else {
-        struct addrinfo hints, *res;
-        memset(&hints, 0, sizeof hints);
-        hints.ai_family = AF_INET;
-        hints.ai_socktype = SOCK_STREAM;
-        if (getaddrinfo(hostname, port, &hints, &res) != 0) {
-            error_exit("getaddrinfo failed");
-        }
-        connect_socket(sockfd, res->ai_addr, res->ai_addrlen);
-        freeaddrinfo(res);
-    }
-
-
-    char request[BUFFER_SIZE];
-    receive_http_request(method, hostname, path, data, request);
-    send_request(sockfd, request);
-    receive_response(sockfd);
-    close(sockfd);
-    
 
     return 0;
 }
