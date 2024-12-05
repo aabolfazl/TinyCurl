@@ -48,6 +48,16 @@ int main(int argc, const char **argv) {
 
     argc = argparse_parse(&argparse, argc, argv);
 
+
+    int Socket = createSocket();
+    
+    socketConnect(Socket);
+    
+    socketSend(Socket);
+    
+    socketRecv(Socket);
+
+    close(Socket);
     return 0;
 }
 
