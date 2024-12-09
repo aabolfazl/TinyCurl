@@ -22,6 +22,8 @@ int main(int argc, const char **argv) {
     const char *user_agent = NULL;
     int timeout = 30;
     const char *request_method = "GET";
+    const char *method = NULL;
+    const char *url = NULL;
     // https://3426f4e2-5ba9-473a-bb4d-e221023be581.mock.pstmn.io
 
 
@@ -48,12 +50,21 @@ int main(int argc, const char **argv) {
 
     argc = argparse_parse(&argparse, argc, argv);
 
+//    method = argv[0] ;
+//    printf("%s\n",argv[0]);
+    
+    url = argv[0];
+    method = argv[1];
+    if(method == NULL || url == NULL){
+        printf("Method is NULL\n");
+        exit(EXIT_FAILURE);
+    }
 
     int Socket = createSocket();
     
-    socketConnect(Socket);
+    socketConnect(Socket,url);
     
-    socketSend(Socket);
+    socketSend(Socket, url, method);
     
     socketRecv(Socket);
 
