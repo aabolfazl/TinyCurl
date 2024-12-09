@@ -5,7 +5,7 @@
 #define TCURL_SOCKET_H
 
 int createSocket();
-void socketConnect(int socketfd);
-void socketSend(int socketfd);
+void socketConnect(int socketfd, const char *url);
+void socketSend(int socketfd, const char *url, const char *method);
 void socketRecv(int socketfd);
 #endif //TCURL_SOCKET_H
