@@ -3,9 +3,7 @@
 //
 #ifndef TCURL_SOCKET_H
 #define TCURL_SOCKET_H
-
-int createSocket();
-void socketConnect(int socketfd, const char *url);
-void socketSend(int socketfd, const char *url, const char *method);
-void socketRecv(int socketfd);
+int socketCreateConnect(const char *hostname,const char *port);
+void httpRequest(int socketfd, const char *method, const char *hostname,const char *path, const char *data);
+void recvRequest(int socketfd);
 #endif //TCURL_SOCKET_H
