@@ -4,6 +4,7 @@
 #include "../libs/arg_parse/arg_parse.h"
 #include "socket.h"
 #include <string.h>
+#include <sys/socket.h>
 #include <unistd.h>
 #include <errno.h>
 #include <stdlib.h>
@@ -12,6 +13,20 @@
 #include <stdlib.h>
 
 #define BUFFER_SIZE 4096
+
+
+void parse_url(const char *url, char *hostname, char *path) {
+    const char *slash = strchr(url, '/');
+    if (slash) {
+        strncpy(hostname, url, slash - url);
+        hostname[slash - url] = '\0';
+        strcpy(path, slash);
+    } else {
+        strcpy(hostname, url);
+        strcpy(path, "/");
+    }
+}
+
 
 static const char *const usages[] = {
     "tcurl [options] <url>",
@@ -22,8 +37,13 @@ int main(int argc, const char **argv) {
     const char *user_agent = NULL;
     int timeout = 30;
     const char *request_method = "GET";
-    const char *method = NULL;
-    const char *url = NULL;
+
+    const char *url = argv[1];
+    const char *method = argv[2];
+    const char *port = "80";
+    const char *data = argv[3];
+    char hostname[256];
+    char path[256];
     // https://3426f4e2-5ba9-473a-bb4d-e221023be581.mock.pstmn.io
 
 
@@ -50,25 +70,16 @@ int main(int argc, const char **argv) {
 
     argc = argparse_parse(&argparse, argc, argv);
 
-//    method = argv[0] ;
-//    printf("%s\n",argv[0]);
-    
-    url = argv[0];
-    method = argv[1];
-    if(method == NULL || url == NULL){
-        printf("Method is NULL\n");
-        exit(EXIT_FAILURE);
-    }
+    parse_url(url,hostname,path);
+    printf("Host: %s\n",hostname);
+    printf("Method: %s\n",method);
+    printf("data: %s\n",data);
+    printf("path: %s\n",path);
+ 
+    int Socket = socketCreateConnect(hostname, port);
+    httpRequest(Socket, method, hostname, path, data);
+    recvRequest(Socket);
 
-    int Socket = createSocket();
-    
-    socketConnect(Socket,url);
-    
-    socketSend(Socket, url, method);
-    
-    socketRecv(Socket);
-
-    close(Socket);
     return 0;
 }
 
