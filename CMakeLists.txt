@@ -4,13 +4,4 @@ project(tcurl C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_subdirectory(libs/arg_parse)
-
-add_executable(tcurl src/main.c
-        src/socket.h
-        src/socket.c 
-    )
-
-target_link_libraries(tcurl PRIVATE argparse)
-
-target_include_directories(tcurl PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libs/arg_parse)
+add_executable(tcurl src/main.c)
