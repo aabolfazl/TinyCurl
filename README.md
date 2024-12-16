@@ -1,4 +1,4 @@
-Tiny curl, a Http client for Linux, Windows and Mac OS X written in C.
+Tiny Curl is an HTTP client for Linux, Windows, and Mac OS X written in C. (under development)
 
 Roadmap for the version 0.0.1:
 - [x] GET requests only
